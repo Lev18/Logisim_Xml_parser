@@ -20,6 +20,7 @@ public class Xml_parser {
     }
     private static String regex = "[,\\.\\s\\<\\\"\\=\\(\\)]";
     private static List<Points> lines = new ArrayList<>();  
+    private static List<Point> pins = new ArrayList<>();
 
     public static String strip(String s) {
         int str_len = s.length();
@@ -42,13 +43,18 @@ public class Xml_parser {
                 int x2 = Integer.parseInt(tokens[12]);
                 int y2 = Integer.parseInt(tokens[13]);
 
-                lines.add(new Points(x1, x2, y1, y2));
+               lines.add(new Points(x1, x2, y1, y2));
                 /*StdDraw.setPenRadius(0.05);
                 StdDraw.setPenColor(StdDraw.BLUE);
                 StdDraw.point(0.5, 0.5);      
                */
                 break;
-            }   
+            }
+            if (tokens[i].equals("comp") && tokens.length == 17) {
+                int x = Integer.parseInt(tokens[9]);
+                int y = Integer.parseInt(tokens[10]);
+                pins.add(new Point(x, y));
+            };   
             i++;
          }
 
@@ -68,9 +74,13 @@ public class Xml_parser {
                 StdDraw.setXscale(0, 1000);
                 StdDraw.setYscale(0, 1000);
                 StdDraw.setPenRadius(0.005);
-                StdDraw.setPenColor(StdDraw.BLUE);
+                StdDraw.setPenColor(StdDraw.GREEN);
                 for (Points p : lines) {
                     StdDraw.line(p.x1, p.y1, p.x2, p.y2); 
+                }
+                StdDraw.setPenRadius(0.025);
+                for (Point pin : pins) {
+                    pin.draw();
                 }
                //StdDraw.line(0.2, 0.2, 0.8, 0.2);
                 StdDraw.show();

@@ -48,6 +48,13 @@ public class Point implements Comparable<Point> {
         StdDraw.line(this.x, this.y, that.x, that.y);
     }
 
+    public int get_x() {
+        return this.x;
+    }
+
+    public int get_y() {
+        return this.y;
+    }
     /**
      * Returns the slope between this point and the specified point.
      * Formally, if the two points are (x0, y0) and (x1, y1), then the slope
